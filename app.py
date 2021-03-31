@@ -22,7 +22,8 @@ rename_map={
         'pollutant_short_name': "Pollutant",
         'avg_bin_speed': "Average Speed (mph)",
         'avg_speed_bin_desc': "Average Speed Bin Description",
-        'rate_per_distance': "Emission Rate (grams/mile)"
+        "per_diff": "Percent Change in MOVES 3 Emissions",
+        'rate_per_distance': "Running Emission Rate (grams/mile)"
     }
 erlt_df_2014b_3_1 = (
     erlt_df_2014b_3
@@ -71,7 +72,8 @@ app.layout = html.Div([
             html.Div(
                  className="eight columns",
                  children=[
-                     html.H1("MOVES 2014b  vs. MOVES 3 Emission Comparison"),
+                     html.H1("MOVES 2014b  vs. MOVES 3 Running Emission "
+                             "Comparison"),
                      dcc.Dropdown(
                          id='pollutant-dropdown',
                          options=pollutants_label_value,
@@ -145,7 +147,7 @@ def set_fuel_value(available_options):
 def update_line_chart(sut_val, fuel_val, pollutant_val, year_val):
     max_em = erlt_df_2014b_3_1.loc[
         lambda df: (df.Pollutant == pollutant_val),
-        'Emission Rate (grams/mile)'].values.max()
+        'Running Emission Rate (grams/mile)'].values.max()
 
     min_em = 0
 
@@ -162,8 +164,8 @@ def update_line_chart(sut_val, fuel_val, pollutant_val, year_val):
     fig = px.line(
         data_frame=erlt_df_2014_2014b_1_fil,
         x='Average Speed (mph)',
-        y='Emission Rate (grams/mile)',
-        hover_data=["Source Type", "Pollutant", "Year"],
+        y='Running Emission Rate (grams/mile)',
+        hover_data=rename_map.values(),
         line_dash="MOVES",
         color="MOVES",
         facet_col="Road Description",
@@ -199,6 +201,10 @@ def update_line_chart(sut_val, fuel_val, pollutant_val, year_val):
             exponentformat='e',
             title_text=""
         ),
+        hoverlabel=dict(
+            font_size=14,
+            font_family="Rockwell"
+        )
     )
     fig.add_annotation(
         {
@@ -215,7 +221,7 @@ def update_line_chart(sut_val, fuel_val, pollutant_val, year_val):
     fig.add_annotation(
         {
             'showarrow': False,
-            'text': 'Emission Rates (grams/mile)',
+            'text': 'Running Emission Rates (grams/mile)',
             'textangle': 270,
             'x': 0,
             'xanchor': 'left',
