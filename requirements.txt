@@ -1,0 +1,6 @@
+# external requirements
+pandas
+plotly
+dash
+gunicorn
+numpy
