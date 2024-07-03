@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'Running-Rates-Dash'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E9236716EEA04608B56FBD83DAC2DC43 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4C6C614BEF514F51847DA255D4B7FA75 }}
